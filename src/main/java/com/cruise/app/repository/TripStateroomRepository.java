@@ -14,4 +14,7 @@ public interface TripStateroomRepository extends JpaRepository<TripStateroom,Int
             "WHERE ps.groupId = :groupId AND ps.stateroom.stateroomId = :stateroomId")
     Optional<TripStateroom> findByGroupIdAndStateroomId(@Param("groupId") Long groupId,
                                                     @Param("stateroomId") Integer stateroomId);
+    @Query("SELECT ts FROM TripStateroom ts "+
+    "WHERE ts.trip.tripId = :tripId")
+    Optional<TripStateroom> findByTripId(@Param("tripId") Integer tripId);
 }

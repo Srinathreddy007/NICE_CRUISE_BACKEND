@@ -2,6 +2,7 @@ package com.cruise.app.service;
 
 import com.cruise.app.model.*;
 import com.cruise.app.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class BookingReadService {
     @Autowired
     private CruiseRepository cruiseRepository;
 
+    @Transactional
     public Map<String, Object> buildJson(List<Passenger> passengerList, Long groupId) {
         Map<String, Object> json =new HashMap<>();
         List<PassengerStateroom> passengerStateroomList =passengerStateroomRepository.findByGroupId(groupId);

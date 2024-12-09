@@ -2,6 +2,8 @@ package com.cruise.app.controller;
 
 import com.cruise.app.dto.BookingDTO;
 import com.cruise.app.model.Passenger;
+import com.cruise.app.model.PassengerStateroom;
+import com.cruise.app.repository.PassengerRepository;
 import com.cruise.app.service.BookingDeleteService;
 import com.cruise.app.service.BookingService;
 import com.cruise.app.service.PassengerService;
@@ -11,8 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -25,6 +26,8 @@ public class BookingPageController {
 
     @Autowired
     private PassengerService passengerService;
+    @Autowired
+    private PassengerRepository passengerRepository;
     @PostMapping("/booking")
     public ResponseEntity<?> bookingPageData(@RequestBody JsonNode bookingData) {
         try {
@@ -54,15 +57,31 @@ public class BookingPageController {
         List<Map<String, Object>> jsonList = passengerService.getBookedList(email);
         return ResponseEntity.ok(jsonList);
     }
+    @GetMapping("/admin/manage-booking")
+    public ResponseEntity<?> readBookingAdmin() {
+        Map<String,List<Map<String, Object>>> adminJson =new HashMap<>();
+        List<Passenger> passengerList = passengerRepository.findAll();
+        Set<String> emails = new HashSet<>();
+        for(Passenger passenger : passengerList) {
+            System.out.println("Passenger "+ passenger);
+            emails.add(passenger.getEmail());
+        }
+        for(String email:emails) {
+            List<Map<String, Object>> jsonList = passengerService.getBookedList(email);
+            adminJson.put(email,jsonList);
+        }
+        return ResponseEntity.ok(adminJson);
+    }
+
+
     @DeleteMapping("/delete-booking")
     public ResponseEntity<?> deleteBooking(@RequestBody List<BookingDTO> testBooking) {
+
         for(BookingDTO bookingDTO:testBooking) {
-            bookingDeleteService.deleteBooking(bookingDTO);
+        bookingDeleteService.deleteBooking(bookingDTO);
         }
         System.out.println(testBooking);
-
         return ResponseEntity.ok("hello world");
-
     }
     @DeleteMapping("/delete-all")
     public String deleteAllData() {

@@ -29,32 +29,37 @@ public class BookingDeleteService {
     @Autowired
     private CruiseMergeRepository cruiseMergeRepository;
 
+
     @Transactional
     public void deleteBooking(BookingDTO bookingDTO) {
 
         List<Passenger> passengerList = passengerRepository.findByGroupId(bookingDTO.getGroupId());
 
         List<PassengerStateroom> passengerStateroomList = passengerStateroomRepository.findByGroupId(bookingDTO.getGroupId());
-        Optional<TripStateroom> optionalTripStateroom=tripStateroomRepository.findByGroupIdAndStateroomId(bookingDTO.getGroupId(),bookingDTO.getStateRoomId());
+//        Optional<TripStateroom> optionalTripStateroom=tripStateroomRepository.findByGroupIdAndStateroomId(bookingDTO.getGroupId(),bookingDTO.getStateRoomId());
 //        for(:optionalTripStateroom) {
 //
 //        }
-        TripStateroom tripStateroom = optionalTripStateroom.get();
+//        TripStateroom tripStateroom = optionalTripStateroom.get();
         //here
 //        Optional<Trip> optionalTrip=tripRepository.findById(tripStateroom.getTrip().getTripId());
 
 
-        Optional<Trip> optionalTrip=tripRepository.findById(tripStateroom.getTrip().getTripId());
+        Optional<Trip> optionalTrip = cruiseMergeRepository.findDistinctTripsByGroupId(bookingDTO.getGroupId());
         Trip trip = optionalTrip.get();
-        Optional<TripPort> optionalTripPort=tripPortRepository.findById(trip.getTripId());
+        Optional<TripPort> optionalTripPort=tripPortRepository.findByTripId(trip.getTripId());
         TripPort tripPort = optionalTripPort.get();
         List<CruiseMerge> cruiseMergeList= cruiseMergeRepository.findByGroupAndTripIds(bookingDTO.getGroupId(), tripPort.getTrip().getTripId());
+        Optional<TripStateroom> optionalTripStateroom = tripStateroomRepository.findByTripId(bookingDTO.getTripId());
+        TripStateroom tripStateroom = optionalTripStateroom.get();
 
         paymentRepository.deleteById(bookingDTO.getPaymentId());
         invoiceRepository.deleteById(bookingDTO.getInvoiceId());
         cruiseMergeRepository.deleteAll(cruiseMergeList);
         tripPortRepository.deleteById(tripPort.getId());
         tripStateroomRepository.deleteById(tripStateroom.getId());
+        // trip to be deleted
+        tripRepository.deleteById(trip.getTripId());
         passengerStateroomRepository.deleteAll(passengerStateroomList);
         passengerRepository.deleteAll(passengerList);
         System.out.println("helloworld one --> this is over");

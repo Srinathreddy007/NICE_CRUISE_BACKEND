@@ -12,4 +12,5 @@ public interface TripPortRepository extends JpaRepository<TripPort, Integer> {
     // Custom query to fetch TripPort by trip ID
     @Query("SELECT tp FROM TripPort tp WHERE tp.trip.tripId = :tripId")
     Optional<TripPort> findByTripId(Integer tripId);
+
 }
