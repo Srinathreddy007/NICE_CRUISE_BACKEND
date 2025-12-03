@@ -25,7 +25,7 @@ real-time availability tracking, optimized database performance, and modular RES
 | Authentication | JWT, Bcrypt |
 | Dev Tools | Maven, Postman, JUnit |
 | Architecture | REST APIs, Layered Design |
-| Deployment | Docker (optional), GitHub Actions (optional) |
+
 
 ---
 ## Project Structure
