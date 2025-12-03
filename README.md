@@ -28,20 +28,22 @@ real-time availability tracking, optimized database performance, and modular RES
 | Deployment | Docker (optional), GitHub Actions (optional) |
 
 ---
-
-## 📌 Project Structure
-src/
-├── main/
-│ ├── java/com/nice/cruise/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── repository/
-│ │ ├── model/
-│ │ └── security/
-│ └── resources/
-│ ├── application.properties
-│ └── schema.sql
-└── test/
+## Project Structure
+src:
+  main:
+    java:
+      com:
+        nice:
+          cruise:
+            controller:  # REST controllers
+            service:     # Business logic layer
+            repository:  # JPA repositories
+            model:       # Entities/DTOs
+            security:    # JWT + authentication configs
+    resources:
+      application.properties
+      schema.sql
+  test:  # Unit & integration tests
 
 ---
 
