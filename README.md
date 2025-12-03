@@ -29,6 +29,7 @@ real-time availability tracking, optimized database performance, and modular RES
 
 ---
 ## Project Structure
+```
 src:
   main:
     java:
@@ -45,7 +46,7 @@ src:
       schema.sql: ""
   test: {}
 
-
+```
 ---
 
 ## API Endpoints (Sample)
