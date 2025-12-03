@@ -35,15 +35,16 @@ src:
       com:
         nice:
           cruise:
-            controller:  # REST controllers
-            service:     # Business logic layer
-            repository:  # JPA repositories
-            model:       # Entities/DTOs
-            security:    # JWT + authentication configs
+            controller:
+            service:
+            repository:
+            model:
+            security:
     resources:
-      application.properties
-      schema.sql
-  test:  # Unit & integration tests
+      - application.properties
+      - schema.sql
+  test:
+
 
 ---
 
