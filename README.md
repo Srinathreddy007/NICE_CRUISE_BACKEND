@@ -36,11 +36,13 @@ src:
       com:
         nice:
           cruise:
+
+            config: {}
             controller: {}
             service: {}
             repository: {}
             model: {}
-            security: {}
+            dto: {}
     resources:
       application.properties: ""
       schema.sql: ""
