@@ -29,21 +29,19 @@ real-time availability tracking, optimized database performance, and modular RES
 
 ---
 ## Project Structure
-src:
-  main:
-    java:
-      com:
-        nice:
-          cruise:
-            controller:
-            service:
-            repository:
-            model:
-            security:
-    resources:
-      - application.properties
-      - schema.sql
-  test:
+  src
+  ├─ main
+  │  ├─ java
+  │  │  └─ com/nice/cruise
+  │  │     ├─ controller
+  │  │     ├─ service
+  │  │     ├─ repository
+  │  │     ├─ model
+  │  │     └─ security
+  │  └─ resources
+  │     ├─ application.properties
+  │     └─ schema.sql
+  └─ test
 
 
 ---
